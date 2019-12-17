@@ -22,6 +22,7 @@ namespace AlCommon.Util
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Reflection;
     using Microsoft.Win32;
+    using System.IO;
 
     /// <summary>
     /// 一般常用的函式放在這裏
@@ -94,6 +95,22 @@ namespace AlCommon.Util
             return sign * Math.Floor(sign * input * pow) / pow;
         }
 
+        /// <summary>
+        /// 深層複製
+        /// </summary>
+        /// <typeparam name="T">複製型態</typeparam>
+        /// <param name="obj">要複製的物件</param>
+        /// <returns>回傳複製的物件</returns>
+        public static T DeepClone<T>(T obj)
+        {
+            using(var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
 
+                return (T)formatter.Deserialize(ms);
+            }
+        }
     }
 }

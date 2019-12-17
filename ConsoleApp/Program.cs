@@ -15,6 +15,7 @@ namespace ConsoleApp
             int b = 2;
 
             double c = Common.Floor(a, b);
+             
         }
     }
 }
