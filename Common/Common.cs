@@ -112,5 +112,26 @@ namespace AlCommon.Util
                 return (T)formatter.Deserialize(ms);
             }
         }
+
+        /// <summary>
+        /// 把value的精度，轉成和basevalue多一位(小數點位數多一位)
+        /// </summary>
+        /// <param name="value">欲齊次的值</param>
+        /// <param name="baseValue">基底值</param>
+        /// <returns>根據baseValue的小數點位數，將新值轉出</returns>
+        public static double ConvertTwoNumberPrecisionSame(double value, double basevalue)
+        {
+            string d = basevalue.ToString();
+            string[] ss = d.Split('.');
+            int decimals = 0;
+            if (ss.Length == 1)
+                decimals = 0;
+
+            if (ss.Length == 2)
+                decimals = ss[1].Length;
+
+            double newValue = Math.Round(value, decimals + 1);
+            return newValue;
+        }
     }
 }

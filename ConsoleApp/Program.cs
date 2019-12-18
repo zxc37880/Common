@@ -11,11 +11,18 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            double a = 1.435;
-            int b = 2;
+            double floorInput = 3.14159265358979323846;
+            int digit = 2;
 
-            double c = Common.Floor(a, b);
-             
+            double floorOutput = Common.Floor(floorInput, digit);
+            Console.WriteLine($"floorInput:{floorInput}, digit:{digit}");
+            Console.WriteLine($"floorOutput:{floorOutput}");
+
+            double value = floorInput;
+            double baseValue = 0.01;
+            double precisionValue = Common.ConvertTwoNumberPrecisionSame(value, baseValue);
+            Console.WriteLine($"value:{value}, baseValue:{baseValue}");
+            Console.WriteLine($"precisionValue:{precisionValue}");
         }
     }
 }
