@@ -1,4 +1,6 @@
 ﻿using AlCommon.Util;
+using ConsoleApp.Model;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,34 @@ namespace ConsoleApp
             double precisionValue = Common.ConvertTwoNumberPrecisionSame(value, baseValue);
             Console.WriteLine($"value:{value}, baseValue:{baseValue}");
             Console.WriteLine($"precisionValue:{precisionValue}");
+
+            Logger logger = NLog.LogManager.GetCurrentClassLogger();
+            try
+            {
+                Employee emp = new Employee();
+                emp.Email = "XXX.com.tw";
+                emp.EngName = "XXY";
+                // log here
+                logger.Trace("Trace");
+                logger.Debug("Debug");
+                logger.Info("Info");
+                logger.Warn("Warn");
+                logger.Error("Error");
+                logger.Fatal("Fatal");
+
+
+                logger.Trace(emp);
+
+                int foo = 0;
+                foo /= foo;
+                 
+            }
+            catch (Exception ex)
+            {
+                // log with exception here
+                logger.Debug(ex, "Error");   
+            }
+
         }
     }
 }
