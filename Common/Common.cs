@@ -17,7 +17,10 @@ namespace AlCommon.Util
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Net;
+    using System.Net.Mail;
     using System.Runtime.Serialization.Formatters.Binary;
+    using System.Text;
 
     /// <summary>
     /// 一般常用的函式放在這裏
@@ -198,6 +201,51 @@ namespace AlCommon.Util
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// C#寄信程式碼
+        /// </summary>
+        public static void SendMail()
+        { 
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+            mail.From = new MailAddress("flow-notice@dynacw.com", "displayName", System.Text.Encoding.UTF8);
+            /* 上面3個參數分別是發件人地址（可以隨便寫），寄件人姓名，編碼*/
+            mail.BodyEncoding = UTF8Encoding.UTF8;
+            mail.HeadersEncoding = UTF8Encoding.UTF8;
+            mail.IsBodyHtml = true;
+            //msg.Priority = MailPriority.High;//郵件優先級 
+            //mail.CC.Add("c@c.com");
+
+            //收信信箱
+            mail.To.Add("zxc37880@gmail.com");
+            mail.Subject = "主旨";
+
+            string path1 = @"E:\Source\GITSERVER\Common\Common\Common\src\mailfile.txt";  
+             
+            Attachment file = new Attachment(path1);
+            mail.Attachments.Add(file);
+            mail.Body = "第一行:<br>";
+            mail.Body += "<blockquote>第二行</blockquote>";
+            mail.Body += "<br>第三行<br><br><h4>謝謝。</h4>";
+
+            using (SmtpClient smtp = new SmtpClient("maildc.dynacw.com", 25))
+            {
+                smtp.Credentials = new NetworkCredential("flow-notice@dynacw.com", "");
+                smtp.EnableSsl = false;
+                smtp.Send(mail);
+            }
+
+            /* Gmail set
+            using (SmtpClient client = new SmtpClient())
+            {
+                client.Credentials = new System.Net.NetworkCredential("XXX@gmail.com", "****"); //這裡要填正確的帳號跟密碼
+                client.Host = "smtp.gmail.com"; //設定smtp Server
+                client.Port = 25; //設定Port
+                client.EnableSsl = true; //gmail預設開啟驗證
+                client.Send(mail); //寄出信件 
+            }*/
+
         }
     }
 }
