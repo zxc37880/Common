@@ -247,5 +247,23 @@ namespace AlCommon.Util
             }*/
 
         }
+
+        /// <summary>
+        /// 產生文字檔
+        /// </summary>
+        public static void GenTxtFile()
+        { 
+            string path = "D:\\xxx\\yyy\\zzz.log";
+            using (StreamWriter outfile = new StreamWriter(path, true))
+            {
+                outfile.WriteLine("******* Start" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "*******");
+
+                outfile.WriteLine("prinf info");
+
+                outfile.WriteLine("\n******* End******* ");
+                outfile.Close();
+                outfile.Dispose();
+            }
+        }
     }
 }

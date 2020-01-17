@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NSubstitute;
+using System.Collections.Specialized;
+using System.Web;
+
 
 namespace AlCommon.Util.Tests
 {
@@ -41,6 +44,39 @@ namespace AlCommon.Util.Tests
 
             //assert
             Assert.AreEqual(expected, actual);
+        }
+
+
+        /// <summary>
+        /// 此範例用了NSubstitute這個單元測試的Framework，成功的隔離了HttpRequest
+        /// 讓WebApi不用真的Browser也能夠進行測試
+        /// Example：驗證使用者Login功能
+        /// 以給蘋果公司的測試帳號為例
+        /// </summary>
+        [TestMethod()]
+        public void LoginTest()
+        {
+            /*
+            NameValueCollection parames = new NameValueCollection()
+            {
+                { "platform", "dynacw" },
+                { "userID", "apptester@dynacw.com" },
+                { "deviceID", "123" },
+                { "pwd", "12345" }
+            };
+
+            HttpRequestBase request = Substitute.For<HttpRequestBase>();
+            request.Form.Returns(parames);
+
+            var usr = new UserController();
+            usr.CurrentHttpRequest = request;
+            var result = usr.Login();
+            var r = result as System.Web.Http.Results.NegotiatedContentResult<DynaAppAPI.Models.DyResult>;
+            if (r.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                Assert.Fail();
+            }
+            */
         }
     }
 }
